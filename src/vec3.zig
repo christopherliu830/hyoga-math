@@ -158,7 +158,7 @@ pub inline fn sub(a: Vec3, b: anytype) Vec3 {
     const T = @TypeOf(b);
     if (T == Vec3) return .{ .v = a.v - b.v };
     return switch (@typeInfo(T)) {
-        .Float, .ComptimeFloat, .ComptimeInt, .Int => blk: {
+        .float, .comptime_float, .comptime_int, .int => blk: {
             const bv: @TypeOf(a.v) = @splat(b);
             break :blk .{ .v = a.v - bv };
         },
@@ -170,7 +170,7 @@ pub inline fn mul(a: Vec3, b: anytype) Vec3 {
     const T = @TypeOf(b);
     if (T == Vec3) return .{ .v = a.v * b.v };
     return switch (@typeInfo(T)) {
-        .Float, .ComptimeFloat, .ComptimeInt, .Int => blk: {
+        .float, .comptime_float, .comptime_int, .int => blk: {
             const bv: @TypeOf(a.v) = @splat(b);
             break :blk .{ .v = a.v * bv };
         },
@@ -182,7 +182,7 @@ pub inline fn div(a: Vec3, b: anytype) Vec3 {
     const T = @TypeOf(b);
     if (T == Vec3) return a.v / b.v;
     return switch (@typeInfo(T)) {
-        .Float, .ComptimeFloat, .ComptimeInt, .Int => blk: {
+        .float, .comptime_float, .comptime_int, .int => blk: {
             const bv: @TypeOf(a.v) = @splat(b);
             break :blk .{ .v = a.v / bv };
         },

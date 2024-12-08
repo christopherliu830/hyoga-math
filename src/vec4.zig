@@ -139,7 +139,7 @@ pub inline fn sub(a: Vec4, b: anytype) Vec4 {
     const T = @TypeOf(b);
     if (T == Vec4) return a.v - b.v;
     switch (@typeInfo(T)) {
-        .Float, .ComptimeFloat, .ComptimeInt, .Int => {
+        .float, .comptime_float, .comptime_int, .int => {
             return a.v - @as(Vec4, @splat(b));
         },
         else => @compileError("add not implemented for " ++ @typeName(T)),
@@ -150,7 +150,7 @@ pub inline fn mul(a: Vec4, b: anytype) Vec4 {
     const T = @TypeOf(b);
     if (T == Vec4) return .{ .v = a.v * b.v };
     return switch (@typeInfo(T)) {
-        .Float, .ComptimeFloat, .ComptimeInt, .Int => blk: {
+        .float, .comptime_float, .comptime_int, .int => blk: {
             const bv: @TypeOf(a.v) = @splat(b);
             break :blk .{ .v = a.v * bv };
         },
@@ -162,7 +162,7 @@ pub inline fn div(a: Vec4, b: anytype) Vec4 {
     const T = @TypeOf(b);
     if (T == Vec4) return a.v / b.v;
     switch (@typeInfo(T)) {
-        .Float, .ComptimeFloat, .ComptimeInt, .Int => return a.v / b,
+        .float, .comptime_float, .comptime_int, .int => return a.v / b,
         else => @compileError("add not implemented for " ++ @typeName(T)),
     }
 }
