@@ -1,5 +1,4 @@
 /// zig version of cglm functions.
-
 const math = @import("std").math;
 
 const root = @This();
@@ -54,7 +53,6 @@ pub const Vec4 = struct {
     pub inline fn clamp(a: *Vec4, min: f32, max: f32) void {
         a.v = root.clamp(a, min, max).v;
     }
-
 };
 
 pub const zero: Vec4 = .{ .v = .{ 0, 0, 0, 0 } };
@@ -70,14 +68,14 @@ pub const z: Vec4 = .{ .v = .{ 0, 0, 1, 0 } };
 pub const w: Vec4 = .{ .v = .{ 0, 0, 0, 1 } };
 
 pub inline fn create(i: f32, j: f32, k: f32, l: f32) Vec4 {
-    return .{ .{ i, j, k, l } };
+    return .{ .v = .{ i, j, k, l } };
 }
 
 pub inline fn dot(a: Vec4, b: Vec4) f32 {
-    return a.v[0] * b.v[0] + 
-           a.v[1] * b.v[1] +
-           a.v[2] * b.v[2] +
-           a.v[3] * b.v[3];
+    return a.v[0] * b.v[0] +
+        a.v[1] * b.v[1] +
+        a.v[2] * b.v[2] +
+        a.v[3] * b.v[3];
 }
 
 pub inline fn sqlen(v: Vec4) f32 {
@@ -94,7 +92,7 @@ pub inline fn abs(v: Vec4) Vec4 {
         @abs(v.v[1]),
         @abs(v.v[2]),
         @abs(v.v[3]),
-    }};
+    } };
 }
 
 pub inline fn fract(v: Vec4) Vec4 {
@@ -103,7 +101,7 @@ pub inline fn fract(v: Vec4) Vec4 {
         v.v[1] - @floor(v.v[1]),
         v.v[2] - @floor(v.v[2]),
         v.v[3] - @floor(v.v[3]),
-    }};
+    } };
 }
 
 /// L1 norm of v.
@@ -169,7 +167,7 @@ pub inline fn div(a: Vec4, b: anytype) Vec4 {
 
 pub inline fn scale_to(v: Vec4, l: f32) Vec4 {
     if (math.floatEps(f32) < len(v)) return zero;
-    return .{ .v = .{ v.v / @as(Vec4, @splat(len(v) * l)) } };
+    return .{ .v = .{v.v / @as(Vec4, @splat(len(v) * l))} };
 }
 
 pub inline fn clamp(a: Vec4, min: f32, max: f32) Vec4 {
@@ -178,5 +176,5 @@ pub inline fn clamp(a: Vec4, min: f32, max: f32) Vec4 {
         @min(@max(a.v[1], min), max),
         @min(@max(a.v[2], min), max),
         @min(@max(a.v[3], min), max),
-    }};
+    } };
 }

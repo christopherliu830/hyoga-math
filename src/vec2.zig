@@ -7,6 +7,12 @@ const root = @This();
 pub const Vec2 = struct {
     v: @Vector(2, f32),
 
+    pub inline fn x(self: Vec2) f32 { return self.v[0]; }
+
+    pub inline fn y(self: Vec2) f32 { return self.v[1]; }
+
+    pub inline fn z(self: Vec2) f32 { return self.v[2]; }
+
     pub inline fn dot(a: Vec2, b: Vec2) f32 {
         return root.dot(a, b);
     }
