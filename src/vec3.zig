@@ -1,7 +1,9 @@
 /// zig version of cglm functions.
 
 const math = @import("std").math;
+
 const vec4 = @import("vec4.zig");
+const Vec4 = vec4.Vec4;
 
 const root = @This();
 
@@ -60,6 +62,10 @@ pub const Vec3 = extern struct {
 
     pub inline fn clamp(a: *Vec3, min: f32, max: f32) void {
         a.v = root.clamp(a.*, min, max).v;
+    }
+
+    pub inline fn append(v: Vec3, n: f32) Vec4 {
+        return Vec4.create(v.v[0], v.v[1], v.v[2], n);
     }
 
 };

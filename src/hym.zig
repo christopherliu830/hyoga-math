@@ -35,7 +35,7 @@ pub fn vec(v: anytype) VectorType(v) {
 fn MulResult(comptime a: type, comptime b: type) type {
     if (a == Mat4 and b == Mat4) return Mat4;
     if ((a == f32 and b == Mat4) or (a == Mat4 and b == f32)) return Mat4;
-    if (a == Vec4 and b == Mat4) return Vec4;
+    if (a == Vec4 and b == Mat4 or a == Mat4 and b == Vec4) return Vec4;
 
     @compileError("mul not supported with types" ++ @typeName(a) ++ @typeName(b));
 }
@@ -51,4 +51,5 @@ pub fn mul(a: anytype, b: anytype) MulResult(@TypeOf(a), @TypeOf(b)) {
         return mat4.allScale(a, b);
     }
     if (ta == Vec4 and tb == Mat4) return mat4.vmul(b, a);
+    if (ta == Mat4 and tb == Vec4) return mat4.mulv(a, b);
 }

@@ -3,56 +3,73 @@ const math = @import("std").math;
 
 const root = @This();
 
+const vec3 = @import("vec3.zig");
+const Vec3 = vec3.Vec3;
+
 pub const Vec4 = struct {
     v: @Vector(4, f32),
 
-    pub inline fn dot(a: Vec4, b: Vec4) f32 {
-        return root.dot(a, b);
+    pub inline fn x(self: Vec4) f32 { return self.v[0]; }
+    pub inline fn y(self: Vec4) f32 { return self.v[1]; }
+    pub inline fn z(self: Vec4) f32 { return self.v[2]; }
+    pub inline fn w(self: Vec4) f32 { return self.v[3]; }
+    pub inline fn r(self: Vec4) f32 { return self.v[0]; }
+    pub inline fn g(self: Vec4) f32 { return self.v[1]; }
+    pub inline fn b(self: Vec4) f32 { return self.v[2]; }
+    pub inline fn a(self: Vec4) f32 { return self.v[3]; }
+
+    pub inline fn dot(self: Vec4, other: Vec4) f32 {
+        return root.dot(self, other);
     }
 
-    pub inline fn sqlen(a: Vec4) f32 {
-        return root.sqlen(a);
+    pub inline fn sqlen(self: Vec4) f32 {
+        return root.sqlen(self);
     }
 
-    pub inline fn len(a: Vec4) f32 {
-        return root.len(a);
+    pub inline fn len(self: Vec4) f32 {
+        return root.len(self);
     }
 
-    pub inline fn normalize(a: *Vec4) void {
-        root.normalize(a);
+    pub inline fn normalize(self: *Vec4) void {
+        root.normalize(self);
     }
 
-    pub inline fn normal(a: Vec4) Vec4 {
-        return root.normal(a);
+    pub inline fn normal(self: Vec4) Vec4 {
+        return root.normal(self);
     }
 
-    pub inline fn cross(a: Vec4, b: Vec4) Vec4 {
-        return root.cross(a, b);
+    pub inline fn cross(self: Vec4, other: Vec4) Vec4 {
+        return root.cross(self, other);
     }
 
-    pub inline fn add(a: *Vec4, b: anytype) void {
-        a.v = root.add(a, b).v;
+    pub inline fn add(self: *Vec4, other: anytype) void {
+        self.v = root.add(self, other).v;
     }
 
-    pub inline fn sub(a: *Vec4, b: anytype) void {
-        a.v = root.sub(a, b).v;
+    pub inline fn sub(self: *Vec4, other: anytype) void {
+        self.v = root.sub(self, other).v;
     }
 
-    pub inline fn mul(a: *Vec4, b: anytype) void {
-        a.v = root.mul(a, b).v;
+    pub inline fn mul(self: *Vec4, other: anytype) void {
+        self.v = root.mul(self, other).v;
     }
 
-    pub inline fn div(a: *Vec4, b: anytype) void {
-        a.v = root.div(a, b).v;
+    pub inline fn div(self: *Vec4, other: anytype) void {
+        self.v = root.div(self, other).v;
     }
 
-    pub inline fn rotate(a: *Vec4, axis: Vec4, amt: f32) void {
-        a.v = root.rotate(a, axis, amt).v;
+    pub inline fn rotate(self: *Vec4, axis: Vec4, amt: f32) void {
+        self.v = root.rotate(self, axis, amt).v;
     }
 
-    pub inline fn clamp(a: *Vec4, min: f32, max: f32) void {
-        a.v = root.clamp(a, min, max).v;
+    pub inline fn clamp(self: *Vec4, min: f32, max: f32) void {
+        self.v = root.clamp(self, min, max).v;
     }
+
+    pub inline fn xyz(v: Vec4) Vec3 {
+        return vec3.create(v.v[0], v.v[1], v.v[2]);
+    }
+
 };
 
 pub const zero: Vec4 = .{ .v = .{ 0, 0, 0, 0 } };
